@@ -1,6 +1,3 @@
-<app-channel [id]="1"></app-channel>
-<app-channel [id]="2"></app-channel>
-<app-channel [id]="3"></app-channel>
-<app-channel [id]="4"></app-channel>
-<app-channel [id]="5"></app-channel>
-<app-channel [id]="6"></app-channel>
+
+<app-menu (channelSelected)="onChannelSelected($event)"></app-menu>
+<app-channel [id]="channelSelected"></app-channel>

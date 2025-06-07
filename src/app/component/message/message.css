@@ -1,0 +1,73 @@
+.discord-message {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 16px;
+  margin-bottom: 4px;
+  background: #313338;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #5865f2;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  user-select: none;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.author {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.date {
+  color: #b5bac1;
+  font-size: 12px;
+}
+
+.content {
+  color: #dbdee1;
+  margin: 2px 0 4px 0;
+  font-size: 15px;
+  word-break: break-word;
+}
+
+.reactions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.reaction {
+  background: #23272a;
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #36393f;
+  transition: background 0.2s;
+}
+
+.reaction:hover {
+  background: #5865f2;
+}

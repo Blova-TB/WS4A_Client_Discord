@@ -1,0 +1,12 @@
+@if(channel){
+  <div>
+    <h2>{{ channel.name }}</h2>
+      @for (message of channel.messages; track message.id) {
+          <app-message [message]="message"></app-message>
+      }
+  </div>
+}
+
+@if(error){
+  <p>{{ error }}</p>
+}

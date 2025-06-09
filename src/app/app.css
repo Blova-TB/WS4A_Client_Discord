@@ -1,0 +1,21 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  background: #313338;
+  color: #c2c2c2;
+}
+
+app-menu {
+  width: 260px;
+  min-width: 200px;
+  background: #23272a;
+  border-right: 1px solid #2f3136;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+app-channel {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+}

@@ -13,10 +13,10 @@ import {Menu} from './component/menu/menu';
 })
 export class App {
 
-  channelSelected: any;
+  channelSelected: number | undefined;
 
   onChannelSelected($event: any) {
-    console.log('Channel selected:', $event);
+    console.log('Channel selected:', $event); //TODO: log a enlever
     this.channelSelected = $event;
   }
   protected title = 'WS4A-CLIENT-DISCORD';

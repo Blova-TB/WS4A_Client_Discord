@@ -12,20 +12,19 @@ import {Message} from '../message/message';
 })
 
 export class Channel implements OnInit {
-  @Input({required:false}) id : any;
+  @Input({required:true}) id : number | undefined;
   channel: any;
   error: string | null = null;
 
   constructor(private channelService: ChannelService) {}
 
   ngOnInit(): void {
-    if (!this.id) {
-      this.id = 1; // Default channel ID if not provided
+    if (this.id != undefined) {
+      this.channelService.getChannel(this.id).subscribe({
+        next: (data) => this.channel = data,
+        error: (err) => this.error = 'Erreur lors du chargement du channel'
+      });
     }
-    this.channelService.getChannel(this.id).subscribe({
-      next: (data) => this.channel = data,
-      error: (err) => this.error = 'Erreur lors du chargement du channel'
-    });
   }
 
   ngOnChanges(): void {

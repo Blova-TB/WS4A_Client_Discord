@@ -1,15 +1,19 @@
-list des différents sujets et channels de discussion :
-
-@for(subject of subjects; track subject.id) {
-  <div class="subject">
-    <h2>{{subject.name}}</h2>
-    <ul>
-      @for(channel of subject.channels; track channel.id) {
-        <li (click)="selectChannel(channel.id)">
-          <h5>{{channel.name}}</h5>
-        </li>
-      }
-    </ul>
+<div class="menu">
+  <div class="header">
+    <h1>Menu</h1>
   </div>
-}
+  <div class="subject">
+    @for (subject of subjects; track subject.id) {
+      <h2>{{ subject.name }}</h2>
+      @for (channel of subject.channels; track channel.id) {
+        <div class="channel"
+             [class.selectedChannel]="isSelectedChannel(channel.id)"
+             (click)="onChannelSelected(channel.id)">
+          <h5>{{ channel.name }}</h5>
+        </div>
+      }
+    }
+  </div>
+</div>
+
 

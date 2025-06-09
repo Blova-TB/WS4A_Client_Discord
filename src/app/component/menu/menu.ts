@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {SubjectService} from '../../service/subjectService';
 
 @Component({
@@ -9,6 +9,7 @@ import {SubjectService} from '../../service/subjectService';
 })
 export class Menu {
   subjects: any;
+  channelSelectedId: number | undefined;
   @Output() channelSelected = new EventEmitter<any>();
 
   constructor(private subjectService: SubjectService) {
@@ -21,7 +22,15 @@ export class Menu {
     });
   }
 
-  selectChannel(channel: any): void {
+  onChannelSelected(channel: any): void {
+    this.channelSelectedId = parseInt(channel);
     this.channelSelected.emit(channel);
+  }
+
+  isSelectedChannel(channel: any): boolean {
+    if (this.channelSelectedId === undefined) {
+      return false;
+    }
+    return this.channelSelectedId === parseInt(channel);
   }
 }

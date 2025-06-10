@@ -1,5 +1,6 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {SubjectService} from '../../service/subjectService';
+import {UserService} from '../../service/userService';
 
 @Component({
   selector: 'app-menu',
@@ -9,16 +10,24 @@ import {SubjectService} from '../../service/subjectService';
 })
 export class MenuComp {
   subjects: any;
+  users: any;
   channelSelectedId: number | undefined;
+  userSelectedId: number | undefined;
   @Output() channelSelected = new EventEmitter<any>();
+  @Output() userSelected = new EventEmitter<any>();
 
-  constructor(private subjectService: SubjectService) {
+  constructor(private subjectService: SubjectService,
+              private userService: UserService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.subjectService.getAllSubject().subscribe({
       next: (data) => this.subjects = data,
       error: (err) => console.error('Erreur lors du chargement des sujets', err)
+    });
+    this.userService.getAllUser().subscribe({
+      next: (data) => this.users = data,
+      error: (err) => console.error('Erreur lors du chargement des utilisateurs', err)
     });
   }
 
@@ -32,5 +41,17 @@ export class MenuComp {
       return false;
     }
     return this.channelSelectedId === parseInt(channel);
+  }
+
+  onUserSelected(user: any): void {
+    this.userSelectedId = parseInt(user);
+    this.userSelected.emit(user);
+  }
+
+  isSelectedUser(user: any): boolean {
+    if (this.userSelectedId === undefined) {
+      return false;
+    }
+    return this.userSelectedId === parseInt(user);
   }
 }

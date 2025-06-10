@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {UserService} from './userService';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,6 @@ export class ChannelService {
     if (!id) {
       throw new Error('Channel ID is required');
     }
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get(`${this.apiUrl}/${id}`, { headers: UserService.getHeaders()});
   }
 }

@@ -20,6 +20,7 @@ export class App {
     this.channelSelected = undefined;
     this.privateDiscutionSelected = undefined;
     UserService.setUser(new DiscordUser(1, 'TestUser', 'test@gmail.com',undefined)); //TODO
+    UserService.setHeaders("user:pwd");
   }
 
   isUserConnected(): boolean {

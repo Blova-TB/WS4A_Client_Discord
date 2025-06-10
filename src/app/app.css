@@ -3,14 +3,13 @@
   height: 100vh;
   background: #313338;
   color: #c2c2c2;
+  font-family: sans-serif;
 }
 
 app-menu {
-  width: 260px;
-  min-width: 200px;
+  width: 100%;
+  height: 100%;
   background: #23272a;
-  border-right: 1px solid #2f3136;
-  height: 100vh;
   overflow-y: auto;
 }
 
@@ -20,6 +19,11 @@ app-channel {
   overflow-y: auto;
 }
 
+.left-panel{
+  width: 30vw;
+  background: #23272a;
+}
+
 .right-panel{
-  width: 100%;
+  width: 70vw;
 }

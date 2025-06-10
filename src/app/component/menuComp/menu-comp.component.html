@@ -1,6 +1,6 @@
 <div class="menu">
   <div class="header">
-    <h1>Menu</h1>
+    <h1>Canaux :</h1>
   </div>
   <div class="subject">
     @for (subject of subjects; track subject.id) {
@@ -12,6 +12,16 @@
           <h5>{{ channel.name }}</h5>
         </div>
       }
+    }
+  </div>
+  <h2>User DM</h2>
+  <div class="messprivate">
+    @for (user of users; track user.id) {
+      <div class="channel"
+           [class.selectedChannel]="isSelectedUser(user.id)"
+           (click)="onUserSelected(user.id)">
+        <h5>{{user.login}}</h5>
+      </div>
     }
   </div>
 </div>

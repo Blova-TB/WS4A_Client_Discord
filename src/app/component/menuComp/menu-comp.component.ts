@@ -4,10 +4,10 @@ import {SubjectService} from '../../service/subjectService';
 @Component({
   selector: 'app-menu',
   imports: [],
-  templateUrl: './menu.html',
-  styleUrl: './menu.css'
+  templateUrl: './menu-comp.component.html',
+  styleUrl: './menu-comp.component.css'
 })
-export class Menu {
+export class MenuComp {
   subjects: any;
   channelSelectedId: number | undefined;
   @Output() channelSelected = new EventEmitter<any>();

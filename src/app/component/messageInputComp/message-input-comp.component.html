@@ -1,0 +1,14 @@
+<div class="message-input-container">
+  <input
+    type="text"
+    [(ngModel)]="message"
+    (keydown.enter)="sendMessage()"
+    placeholder="Écrire un message..."
+    class="message-input"
+  />
+  <button class="send-btn" (click)="sendMessage()" [disabled]="!message.trim()">
+    <svg width="20" height="20" viewBox="0 0 20 20">
+      <path d="M2 10L18 3L15 17L10 12L2 10Z" fill="currentColor"/>
+    </svg>
+  </button>
+</div>

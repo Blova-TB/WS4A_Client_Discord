@@ -1,0 +1,21 @@
+<div class="channel">
+
+  @if (channel) {
+    <div class="header">
+      <h1>{{ channel.name }}</h1>
+    </div>
+    <div class="messages">
+        @for (message of channel.messages; track message.id) {
+          <app-message [message]="message"></app-message>
+        }
+
+    </div>
+      <app-message-input (messageSent)="onMessageSent($event)"></app-message-input>
+  } @else {
+    <p>No Channel Select</p>
+  }
+</div>
+
+@if (error) {
+  <p>{{ error }}</p>
+}

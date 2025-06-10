@@ -1,4 +1,16 @@
 <div class="app-container">
-  <app-menu (channelSelected)="onChannelSelected($event)"></app-menu>
-  <app-channel [id]="channelSelected"></app-channel>
+  @if (isUserConnected()){
+    <app-menu (channelSelected)="onChannelSelected($event)"></app-menu>
+    <div class="right-panel">
+      @if(channelSelected !== undefined){
+        <app-channel [id]="channelSelected"></app-channel>
+      } @else if (privateDiscutionSelected) {
+
+      } @else {
+        <p>No Channel Selected</p>
+      }
+    </div>
+  } @else {
+
+  }
 </div>

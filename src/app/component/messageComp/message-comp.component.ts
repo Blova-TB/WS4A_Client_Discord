@@ -7,10 +7,10 @@ import {DecimalPipe, UpperCasePipe} from '@angular/common';
     UpperCasePipe,
     DecimalPipe
   ],
-  templateUrl: './message.html',
-  styleUrl: './message.css'
+  templateUrl: './message-comp.component.html',
+  styleUrl: './message-comp.component.css'
 })
-export class Message {
+export class MessageComp {
   @Input ({ required: true }) message: any;
 
   constructor() {}

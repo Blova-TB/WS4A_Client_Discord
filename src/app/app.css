@@ -19,3 +19,7 @@ app-channel {
   height: 100vh;
   overflow-y: auto;
 }
+
+.right-panel{
+  width: 100%;
+}

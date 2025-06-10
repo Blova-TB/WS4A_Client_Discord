@@ -33,6 +33,7 @@ export class MenuComp {
 
   onChannelSelected(channel: any): void {
     this.channelSelectedId = parseInt(channel);
+    this.userSelectedId = undefined;
     this.channelSelected.emit(channel);
   }
 
@@ -45,6 +46,7 @@ export class MenuComp {
 
   onUserSelected(user: any): void {
     this.userSelectedId = parseInt(user);
+    this.channelSelectedId = undefined;
     this.userSelected.emit(user);
   }
 

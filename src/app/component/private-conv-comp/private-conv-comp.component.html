@@ -1,0 +1,18 @@
+<div class="conv">
+  @if (conv) {
+    <div class="header">
+      <h1>{{ conv.otherUser.login }}</h1>
+    </div>
+    <div class="messages">
+      @for (message of conv.messages; track message.id) {
+        <app-message [message]="message"></app-message>
+      }
+    </div>
+    <app-message-input (messageSent)="onMessageSent($event)"></app-message-input>
+  } @else {
+    <p>No User Select</p>
+  }
+</div>
+@if (error) {
+  <p>{{ error }}</p>
+}

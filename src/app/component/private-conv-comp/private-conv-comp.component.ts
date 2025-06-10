@@ -1,32 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ChannelService} from '../../service/channelService';
+import {MessageComp} from '../message-comp/message-comp.component';
+import {MessageInputComp} from '../message-input-comp/message-input-comp.component';
 import {MessageService} from '../../service/messageService';
-import {MessageComp} from '../messageComp/message-comp.component';
-import {MessageInputComp} from '../messageInputComp/message-input-comp.component';
+import {ConversationService} from '../../service/conversationService';
 
 @Component({
-  selector: 'app-channel',
-  templateUrl: './channel-comp.component.html',
+  selector: 'app-private-conv',
   imports: [
     MessageComp,
     MessageInputComp
   ],
-  styleUrls: ['./channel-comp.component.css']
+  templateUrl: './private-conv-comp.component.html',
+  styleUrl: './private-conv-comp.component.css'
 })
-
-export class ChannelComp implements OnInit {
+export class PrivateConvComp implements OnInit{
   @Input({required: true}) id: number = -1;
-  channel: any;
+  conv: any;
   error: string | null = null;
 
-  constructor(private channelService: ChannelService,
+  constructor(private conversationService: ConversationService,
               private messageService: MessageService) {
   }
 
   ngOnInit(): void {
     if (this.id != undefined) {
-      this.channelService.getChannel(this.id).subscribe({
-        next: (data) => this.channel = data,
+      this.conversationService.getConv(this.id).subscribe({
+        next: (data) => this.conv = data,
         error: (err) => this.error = 'Erreur lors du chargement du channel'
       });
     }
@@ -34,8 +33,8 @@ export class ChannelComp implements OnInit {
 
   ngOnChanges(): void {
     if (this.id) {
-      this.channelService.getChannel(this.id).subscribe({
-        next: (data) => this.channel = data,
+      this.conversationService.getConv(this.id).subscribe({
+        next: (data) => this.conv = data,
         error: (err) => this.error = 'Erreur lors du chargement du channel'
       });
     }
@@ -43,11 +42,11 @@ export class ChannelComp implements OnInit {
 
   onMessageSent(message: string): void {
     if (message != undefined) {
-      this.messageService.postMessage(undefined, this.id, message, undefined).subscribe(
+      this.messageService.postMessage(this.id, undefined , message, undefined).subscribe(
         {
           next: () => {
-            this.channelService.getChannel(this.id).subscribe({
-              next: (data) => this.channel = data,
+            this.conversationService.getConv(this.id).subscribe({
+              next: (data) => this.conv = data,
               error: (err) => this.error = 'Erreur lors de l\'envoi du message'
             });
           },

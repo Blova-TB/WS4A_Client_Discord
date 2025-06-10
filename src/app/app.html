@@ -1,13 +1,14 @@
 <div class="app-container">
   @if (isUserConnected()){
     <div class="left-panel">
-      <app-menu (channelSelected)="onChannelSelected($event)"></app-menu>
+      <app-menu (channelSelected)="onChannelSelected($event)"
+                (userSelected)="onPrivateDiscutionSelected($event)"></app-menu>
     </div>
     <div class="right-panel">
       @if(channelSelected !== undefined){
         <app-channel [id]="channelSelected"></app-channel>
       } @else if (privateDiscutionSelected) {
-
+        <app-private-conv [id]="privateDiscutionSelected"></app-private-conv>
       } @else {
         <p>No Channel Selected</p>
       }

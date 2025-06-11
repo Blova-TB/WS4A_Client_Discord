@@ -74,6 +74,11 @@
   font-size: 12px;
 }
 
+.id {
+  color: #90959b;
+  font-size: 10px;
+}
+
 .content {
   color: #dbdee1;
   margin: 2px 0 4px 0;

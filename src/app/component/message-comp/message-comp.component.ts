@@ -37,4 +37,8 @@ export class MessageComp {
   isRespondSelected(message: any) {
     return this.messageService.respondMessageId === message.id;
   }
+
+  // messageText(): string {
+  //   return (marked.parseInline(this.message.content)) as string;
+  // }
 }

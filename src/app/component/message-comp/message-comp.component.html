@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="content">{{ message.content }}</div>
-
+<!--      <div class="content" [innerHTML]="messageText()"></div>-->
       @if (message.reactions?.length) {
         <div class="reactions">
           @for (reaction of message.reactions; track message.id) {

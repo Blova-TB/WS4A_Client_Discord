@@ -1,5 +1,5 @@
-<div class="all-of-messages">
-  <div class="discord-message">
+<div class="all-of-message" [ngClass]="{'all-of-message-hover': !isRespondSelected(message)}">
+  <div class="discord-message" [ngClass]="{'blue-background': isRespondSelected(message)}">
     <div class="avatar">{{ message.authorName[0] | uppercase }}</div>
     <div class="message-content">
       <div class="header">

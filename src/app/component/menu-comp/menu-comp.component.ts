@@ -1,6 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {SubjectService} from '../../service/subjectService';
 import {UserService} from '../../service/userService';
+import {MessageService} from '../../service/messageService';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +18,8 @@ export class MenuComp {
   @Output() userSelected = new EventEmitter<any>();
 
   constructor(private subjectService: SubjectService,
-              private userService: UserService) {
+              private userService: UserService,
+              private messageService: MessageService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -34,6 +36,7 @@ export class MenuComp {
   onChannelSelected(channel: any, subject:any): void {
     this.channelSelectedId = parseInt(channel);
     this.channelSelected.emit({channel:channel,isAdmin:this.userIsAdminForSubject(subject)});
+    this.messageService.resetRespondMessageId();
     this.userSelectedId = undefined;
   }
 
@@ -47,6 +50,7 @@ export class MenuComp {
   onUserSelected(user: any): void {
     this.userSelectedId = parseInt(user);
     this.channelSelectedId = undefined;
+    this.messageService.resetRespondMessageId();
     this.userSelected.emit(user);
   }
 

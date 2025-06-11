@@ -45,7 +45,7 @@ export class ChannelComp implements OnInit {
 
   onMessageSent(message: string): void {
     if (message != undefined) {
-      this.messageService.postMessage(undefined, this.id, message, undefined).subscribe(
+      this.messageService.postMessage(undefined, this.id, message).subscribe(
         {
           next: () => {
             this.channelService.getChannel(this.id).subscribe({

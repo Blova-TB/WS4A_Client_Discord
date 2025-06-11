@@ -9,11 +9,13 @@ import {UserService} from './userService';
 })
 export class MessageService {
   private apiUrl = 'http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/message';
+  private static respondMessageId: number | undefined;
+
 
   constructor(private http: HttpClient) {
   }
 
-  postMessage(receiverId: number|undefined, chanenelId: number|undefined, message: string, respondToId : number | undefined): Observable<any> {
+  postMessage(receiverId: number|undefined, chanenelId: number|undefined, message: string): Observable<any> {
     if (!message) {
       throw new Error('Message content is required');
     }
@@ -26,12 +28,24 @@ export class MessageService {
       throw new Error('Either receiverId or channelId must be provided');
     }
 
-    var newMessage = new Message( UserService.getUserId(), undefined, message, chanenelId, receiverId, respondToId);
+    var newMessage = new Message( UserService.getUserId(), undefined, message, chanenelId, receiverId, MessageService.respondMessageId);
 
     return this.http.post(`${this.apiUrl}/`, newMessage, { headers: UserService.getHeaders() });
   }
 
   deleteMessage($event: number) {
     return this.http.delete(`${this.apiUrl}/${$event}`, { headers: UserService.getHeaders() });
+  }
+
+  setRespondMessageId(id: number) {
+    MessageService.respondMessageId = id;
+  }
+
+  resetRespondMessageId() {
+    MessageService.respondMessageId = undefined;
+  }
+
+  get respondMessageId(): number | undefined {
+    return MessageService.respondMessageId;
   }
 }

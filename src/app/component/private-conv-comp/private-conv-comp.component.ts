@@ -42,7 +42,7 @@ export class PrivateConvComp implements OnInit{
 
   onMessageSent(message: string): void {
     if (message != undefined) {
-      this.messageService.postMessage(this.id, undefined , message, undefined).subscribe(
+      this.messageService.postMessage(this.id, undefined , message).subscribe(
         {
           next: () => {
             this.conversationService.getConv(this.id).subscribe({

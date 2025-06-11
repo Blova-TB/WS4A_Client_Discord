@@ -1,12 +1,13 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {DecimalPipe, UpperCasePipe} from '@angular/common';
+import {DecimalPipe, NgClass, UpperCasePipe} from '@angular/common';
 import {MessageService} from '../../service/messageService';
 
 @Component({
   selector: 'app-message',
   imports: [
     UpperCasePipe,
-    DecimalPipe
+    DecimalPipe,
+    NgClass
   ],
   templateUrl: './message-comp.component.html',
   styleUrl: './message-comp.component.css',
@@ -26,10 +27,14 @@ export class MessageComp {
   }
 
   setRespondMess() {
-
+    this.messageService.setRespondMessageId(this.message.id);
   }
 
   deleteMess() {
     this.messageDeleted.emit(this.message.id);
+  }
+
+  isRespondSelected(message: any) {
+    return this.messageService.respondMessageId === message.id;
   }
 }

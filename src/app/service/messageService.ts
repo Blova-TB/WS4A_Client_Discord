@@ -29,7 +29,7 @@ export class MessageService {
     }
 
     var newMessage = new Message( UserService.getUserId(), undefined, message, chanenelId, receiverId, MessageService.respondMessageId);
-
+    this.resetRespondMessageId();
     return this.http.post(`${this.apiUrl}/`, newMessage, { headers: UserService.getHeaders() });
   }
 

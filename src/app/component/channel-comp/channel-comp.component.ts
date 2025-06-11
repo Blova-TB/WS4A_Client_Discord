@@ -11,10 +11,12 @@ import {MessageInputComp} from '../message-input-comp/message-input-comp.compone
     MessageComp,
     MessageInputComp
   ],
-  styleUrls: ['./channel-comp.component.css']
+  styleUrls: ['./channel-comp.component.css'],
+  standalone: true
 })
 
 export class ChannelComp implements OnInit {
+  @Input({required: true}) isAdmin: boolean = false;
   @Input({required: true}) id: number = -1;
   channel: any;
   error: string | null = null;
@@ -55,5 +57,17 @@ export class ChannelComp implements OnInit {
         }
       )
     }
+  }
+
+  onDeleteMess($event: number) {
+    this.messageService.deleteMessage($event).subscribe({
+      next: () => {
+        this.channelService.getChannel(this.id).subscribe({
+          next: (data) => this.channel = data,
+          error: (err) => this.error = 'Erreur lors de la suppression du message'
+        });
+      },
+      error: (err) => this.error = 'Erreur lors de la suppression du message'
+    });
   }
 }

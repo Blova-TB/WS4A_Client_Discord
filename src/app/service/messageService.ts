@@ -30,4 +30,8 @@ export class MessageService {
 
     return this.http.post(`${this.apiUrl}/`, newMessage, { headers: UserService.getHeaders() });
   }
+
+  deleteMessage($event: number) {
+    return this.http.delete(`${this.apiUrl}/${$event}`, { headers: UserService.getHeaders() });
+  }
 }

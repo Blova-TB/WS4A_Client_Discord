@@ -6,7 +6,7 @@
     </div>
     <div class="right-panel">
       @if(channelSelected !== undefined){
-        <app-channel [id]="channelSelected"></app-channel>
+        <app-channel [id]="channelSelected" [isAdmin]="isAdmin"></app-channel>
       } @else if (privateDiscutionSelected) {
         <app-private-conv [id]="privateDiscutionSelected"></app-private-conv>
       } @else {

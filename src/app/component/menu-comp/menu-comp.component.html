@@ -24,7 +24,7 @@
         @for (channel of subject.channels; track channel.id) {
           <div class="channel"
                [class.selectedChannel]="isSelectedChannel(channel.id)"
-               (click)="onChannelSelected(channel.id)">
+               (click)="onChannelSelected(channel.id, subject)">
             <h5>{{ channel.name }}</h5>
           </div>
         }

@@ -5,7 +5,7 @@
     </div>
     <div class="messages">
       @for (message of conv.messages; track message.id) {
-        <app-message [message]="message"></app-message>
+        <app-message (messageDeleted)="onDeleteMess($event)" [message]="message" [isAdmin]="true"></app-message>
       }
     </div>
     <app-message-input (messageSent)="onMessageSent($event)"></app-message-input>

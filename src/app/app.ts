@@ -16,6 +16,7 @@ import {ConnexionComp} from './component/connexion-comp/connexion-comp.component
 export class App {
   protected title = 'WS4A-CLIENT-DISCORD';
   channelSelected: number | undefined;
+  isAdmin!: boolean;
   privateDiscutionSelected : number | undefined;
 
   constructor() {
@@ -30,7 +31,8 @@ export class App {
   onChannelSelected($event: any) {
     console.log('Channel selected:', $event); //TODO: log a enlever
     this.privateDiscutionSelected = undefined;
-    this.channelSelected = $event;
+    this.channelSelected = $event.channel;
+    this.isAdmin = $event.isAdmin;
   }
 
   onPrivateDiscutionSelected($event: any) {

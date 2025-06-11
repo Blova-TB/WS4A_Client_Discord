@@ -6,7 +6,7 @@
     </div>
     <div class="messages">
         @for (message of channel.messages; track message.id) {
-          <app-message [message]="message"></app-message>
+          <app-message (messageDeleted)="onDeleteMess($event)" [message]="message" [isAdmin]="isAdmin"></app-message>
         }
 
     </div>

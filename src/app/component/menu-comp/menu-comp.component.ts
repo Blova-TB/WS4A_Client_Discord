@@ -13,7 +13,7 @@ export class MenuComp {
   users: any;
   channelSelectedId: number | undefined;
   userSelectedId: number | undefined;
-  @Output() channelSelected = new EventEmitter<any>();
+  @Output() channelSelected = new EventEmitter<{channel:any;isAdmin:boolean}>();
   @Output() userSelected = new EventEmitter<any>();
 
   constructor(private subjectService: SubjectService,
@@ -31,10 +31,10 @@ export class MenuComp {
     });
   }
 
-  onChannelSelected(channel: any): void {
+  onChannelSelected(channel: any, subject:any): void {
     this.channelSelectedId = parseInt(channel);
+    this.channelSelected.emit({channel:channel,isAdmin:this.userIsAdminForSubject(subject)});
     this.userSelectedId = undefined;
-    this.channelSelected.emit(channel);
   }
 
   isSelectedChannel(channel: any): boolean {

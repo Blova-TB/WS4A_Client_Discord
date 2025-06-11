@@ -55,4 +55,16 @@ export class PrivateConvComp implements OnInit{
       )
     }
   }
+
+  onDeleteMess($event : number) {
+    this.messageService.deleteMessage($event).subscribe({
+      next: () => {
+        this.conversationService.getConv(this.id).subscribe({
+          next: (data) => this.conv = data,
+          error: (err) => this.error = 'Erreur lors de la suppression du message'
+        });
+      },
+      error: (err: string) => this.error = 'Erreur lors de la suppression du message' + err
+    });
+  }
 }

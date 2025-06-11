@@ -24,7 +24,7 @@ export class ConnexionComp {
     this.userService.setHeaders($event.token);
     this.userService.getUserWithPseudo($event.pseudo).subscribe({
       next: (user: any) => {
-        this.userService.setUser(user);
+        this.userService.setUser(user.id, user.name, user.email, user.password);
         this.connexionSucess.emit(true);
       },
       error: (error: any) => {

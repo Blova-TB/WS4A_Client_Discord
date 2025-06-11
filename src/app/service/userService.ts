@@ -26,11 +26,8 @@ export class UserService{
     return this.user ? this.user.id : undefined;
   }
 
-  setUser(user: any) {
-    UserService.user.id = user.id;
-    UserService.user.name = user.login;
-    UserService.user.email = user.email;
-    UserService.user.password = user.password;
+  setUser(id: number, login: string, email: string, password: string) {
+    UserService.user = new DiscordUser(id, login, email, password);
   }
 
   setHeaders(token: string) {

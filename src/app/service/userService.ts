@@ -34,7 +34,7 @@ export class UserService{
     UserService.httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Basic' + token // Replace with actual credentials
+      'Authorization': token // Replace with actual credentials
     });
   }
 
@@ -51,7 +51,7 @@ export class UserService{
     const headers = new HttpHeaders({
       'authorization': `Basic ${token}`
     });
-    return this.http.post(`http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/connect`, null, { headers });
+    return this.http.post(`http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/AuthServer/connect`, null, { headers });
   }
 
   logout() {

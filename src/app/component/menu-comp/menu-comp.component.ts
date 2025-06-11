@@ -60,4 +60,19 @@ export class MenuComp {
   onLogout() {
     this.userService.logout();
   }
+
+  userAsAccessToSubject(subject: any): boolean {
+    if (subject.isPublic){
+      return true;
+    }
+    return subject.users && subject.users.some((user: any) => user.idUser === UserService.getUserId());
+  }
+
+  onSubjectSettings(subject: any) {
+    //todo
+  }
+
+  userIsAdminForSubject(subject: any) {
+    return subject.users.some((user: any) => user.idUser === UserService.getUserId() && user.isAdmin);
+  }
 }

@@ -34,7 +34,7 @@ export class UserService{
     UserService.httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': token // Replace with actual credentials
+      'Authorization': token
     });
   }
 

@@ -28,6 +28,6 @@ export class MessageService {
 
     var newMessage = new Message( UserService.getUserId(), undefined, message, chanenelId, receiverId, respondToId);
 
-    return this.http.post(`${this.apiUrl}/`, newMessage);
+    return this.http.post(`${this.apiUrl}/`, newMessage, { headers: UserService.getHeaders() });
   }
 }

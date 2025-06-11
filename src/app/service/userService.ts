@@ -14,31 +14,46 @@ export class UserService{
   constructor(private http: HttpClient) {
   }
 
-  static setHeaders(token: string) {
-    UserService.httpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Basic' + btoa( token) // Replace with actual credentials
-    });
-  }
-
   static getHeaders(): HttpHeaders {
-    return UserService.httpHeaders;
+    return this.httpHeaders;
   }
 
   static isConected(): boolean {
-    return UserService.user !== undefined && UserService.user.id !== undefined;
-  }
-
-  static setUser(user: DiscordUser) {
-    UserService.user = user;
+    return this.user !== undefined && this.user.id !== undefined;
   }
 
   static getUserId(): number | undefined {
-    return UserService.user ? UserService.user.id : undefined;
+    return this.user ? this.user.id : undefined;
+  }
+
+  setUser(user: any) {
+    UserService.user.id = user.id;
+    UserService.user.name = user.login;
+    UserService.user.email = user.email;
+    UserService.user.password = user.password;
+  }
+
+  setHeaders(token: string) {
+    UserService.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Basic' + token // Replace with actual credentials
+    });
+  }
+
+  getUserWithPseudo(pseudo : string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${pseudo}`, { headers: UserService.getHeaders() });
   }
 
   getAllUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/`, { headers: UserService.getHeaders()});
+  }
+
+  login(pseudo: string, password: string): Observable<any> {
+    const token = btoa(`${pseudo}:${password}`);
+    const headers = new HttpHeaders({
+      'authorization': `Basic ${token}`
+    });
+    return this.http.post(`http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/connect`, null, { headers });
   }
 }

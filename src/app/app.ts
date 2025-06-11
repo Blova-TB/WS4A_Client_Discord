@@ -4,11 +4,12 @@ import { MenuComp } from './component/menu-comp/menu-comp.component';
 import { UserService } from './service/userService';
 import {DiscordUser} from './model/discordUser';
 import {PrivateConvComp} from './component/private-conv-comp/private-conv-comp.component';
+import {ConnexionComp} from './component/connexion-comp/connexion-comp.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [ChannelComp, MenuComp, PrivateConvComp],
+  imports: [ChannelComp, MenuComp, PrivateConvComp, ConnexionComp],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -20,8 +21,6 @@ export class App {
   constructor() {
     this.channelSelected = undefined;
     this.privateDiscutionSelected = undefined;
-    UserService.setUser(new DiscordUser(1, 'TestUser', 'test@gmail.com',undefined)); //TODO
-    UserService.setHeaders("user:pwd");
   }
 
   isUserConnected(): boolean {

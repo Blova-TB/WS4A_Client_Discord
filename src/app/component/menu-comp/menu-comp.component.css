@@ -1,11 +1,25 @@
 .menu {
-  margin: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
   width: 80%;
   color: #c2c2c2;
 
+  .top-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
   .header{
     width: 100%;
-    text-align:center
+    text-align:center;
+
+    display: block;
+    font-size: 2em;
+    margin : 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
   }
 
   .channel {
@@ -17,4 +31,18 @@
   .selectedChannel {
     color: white !important;
   }
+}
+
+.logout-btn {
+  background-color: #23272a !important;
+  color: #fff !important;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.logout-btn svg {
+  fill: #fff;
 }

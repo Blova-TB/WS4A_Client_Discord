@@ -53,4 +53,8 @@ export class UserService{
     });
     return this.http.post(`http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/connect`, null, { headers });
   }
+
+  logout() {
+    UserService.user = new DiscordUser(undefined, '', '', '');
+  }
 }

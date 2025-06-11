@@ -1,6 +1,14 @@
+<div class="top-header">
+  <button class="logout-btn" (click)="onLogout()" aria-label="Déconnexion">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+      <path d="M6 2a2 2 0 0 0-2 2v2a.5.5 0 0 0 1 0V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2a.5.5 0 0 0-1 0v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6z"/>
+      <path d="M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H9.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2z"/>
+    </svg>
+  </button>
+</div>
 <div class="menu">
   <div class="header">
-    <h1>Canaux :</h1>
+    Canaux :
   </div>
   <div class="subject">
     @for (subject of subjects; track subject.id) {

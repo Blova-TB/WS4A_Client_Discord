@@ -56,4 +56,8 @@ export class MenuComp {
     }
     return this.userSelectedId === parseInt(user);
   }
+
+  onLogout() {
+    this.userService.logout();
+  }
 }

@@ -1,0 +1,21 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <div class="header-modal">
+      <span>Paramètres du sujet</span>
+      <div class="button-close"  (click)="onExit()" aria-label="Fermer">
+        x
+      </div>
+    </div>
+    <label>
+      <input type="checkbox" [checked]="subject.isPublic" (change)="togglePublic()"/>
+      Sujet public
+    </label>
+    @for (user of users; track user.id) {
+    <div class="user-item">
+      <div (click)="toggleUser(user)" [class.selected]="isUserInSubject(user)">
+        {{ user.login }}
+      </div>
+    </div>
+    }
+  </div>
+</div>

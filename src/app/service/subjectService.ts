@@ -15,4 +15,9 @@ export class SubjectService {
   getAllSubject(): Observable<any> {
     return this.http.get(`${this.apiUrl}/`, { headers: UserService.getHeaders() });
   }
+
+  updateSubject(updatedSubject: any): Observable<any> {
+    console.log('FINALE Updating subject:', updatedSubject);
+    return this.http.put(`${this.apiUrl}/`,updatedSubject, { headers: UserService.getHeaders() });
+  }
 }

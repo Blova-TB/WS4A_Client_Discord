@@ -2,14 +2,19 @@ import {Component, Output, EventEmitter} from '@angular/core';
 import {SubjectService} from '../../service/subjectService';
 import {UserService} from '../../service/userService';
 import {MessageService} from '../../service/messageService';
+import {SubjectSettingsModal} from '../subject-settings-modal/subject-settings-modal';
 
 @Component({
   selector: 'app-menu',
-  imports: [],
+  imports: [
+    SubjectSettingsModal
+  ],
   templateUrl: './menu-comp.component.html',
   styleUrl: './menu-comp.component.css'
 })
 export class MenuComp {
+  showSubjectModal = false;
+  subjectToEdit: any;
   subjects: any;
   users: any;
   channelSelectedId: number | undefined;
@@ -73,10 +78,16 @@ export class MenuComp {
   }
 
   onSubjectSettings(subject: any) {
-    //todo
+    this.subjectToEdit = subject; // clone pour édition
+    this.showSubjectModal = true;
   }
 
   userIsAdminForSubject(subject: any) {
     return subject.users.some((user: any) => user.idUser === UserService.getUserId() && user.isAdmin);
+  }
+
+  onCloseModal() {
+    this.showSubjectModal = false;
+    this.ngOnInit();
   }
 }

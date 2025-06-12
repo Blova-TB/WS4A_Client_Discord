@@ -23,7 +23,7 @@ export class RegisterComp {
   errorMessage: string;
 
   equalsPasswordValidator(control: FormControl): { [key: string]: boolean } | null {
-    if (this.user && control.value !== this.userForm.get('password')?.value) {
+    if (control.value !== this.userForm.get('password')?.value) {
       return { 'passwordMismatch': true }; // Return an error if passwords do not match
     }
     return null; // Return null if passwords match

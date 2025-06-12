@@ -95,6 +95,10 @@ this.message.reactions.find((reaction: any) => reaction.userId === userId);
   }
 
   setRespondMess() {
+    if (this.isRespondSelected(this.message)) {
+      this.messageService.resetRespondMessageId();
+      return;
+    }
     this.messageService.setRespondMessageId(this.message.id);
   }
 

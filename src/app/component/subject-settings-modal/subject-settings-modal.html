@@ -19,7 +19,7 @@
     }
     <div class="footer-modal">
       <button class="btn-new" (click)="onNewChannel()">New Channel</button>
-      <button class="btn-del" (click)="onDeleteSubject()">Delete Workspace</button>
+      <button class="btn-del" (click)="onDeleteSubject()">Delete Subject</button>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
   <app-validation-modal
     [yesText]="'Oui'"
     [noText]="'Annuler'"
-    [message]="'Êtes-vous sûr de vouloir supprimer ce Workspace ?'"
+    [message]="'Êtes-vous sûr de vouloir supprimer ce Subject ?'"
     (yes)="onModalValidationDeletionYes()"
     (no)="onModalValidationDeletionNo()">
   </app-validation-modal>

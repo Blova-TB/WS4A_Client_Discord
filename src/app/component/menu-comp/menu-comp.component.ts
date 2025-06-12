@@ -152,6 +152,7 @@ export class MenuComp {
     this.subjectService.createSubject(subject).subscribe({
       next: (data) => {
         this.subjects.push(data);
+        this.ngOnInit();
       },
       error: (err) => console.error('Erreur lors de la création du sujet', err)
     });

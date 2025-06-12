@@ -17,19 +17,36 @@ export class MessageInputComp {
   ngOnInit(): void {
     console.log('MessageInputComp initialized : ', this.message);
   }
-  playAudio(){
+  playAudio(i: number) {
     let audio = new Audio();
-    audio.src = "budim2.wav";
+    switch (i) {
+      case 0:
+        audio.src = "budim2.wav";
+        break;
+      case 1:
+        audio.src = "WYSI.wav";
+        break;
+      case 2:
+        audio.src = "fishAuChocolat.wav";
+        break;
+    }
     audio.load();
     audio.play();
   }
+
 
   sendMessage() {
     const trimmed = this.message.trim();
     if (trimmed) {
       this.messageSent.emit(trimmed);
       this.message = '';
-      this.playAudio();
+      if(trimmed.includes("727")){
+        this.playAudio(1);
+      }else if(trimmed.includes("baguette")){
+        this.playAudio(2);
+      }else{
+        this.playAudio(0);
+      }
     }
   }
 }

@@ -48,4 +48,8 @@ export class MessageService {
   get respondMessageId(): number | undefined {
     return MessageService.respondMessageId;
   }
+
+  getMessagge($event: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${$event}`, { headers: UserService.getHeaders() });
+  }
 }

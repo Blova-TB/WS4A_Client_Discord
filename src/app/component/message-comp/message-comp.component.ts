@@ -1,15 +1,18 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {DecimalPipe, NgClass, UpperCasePipe} from '@angular/common';
+import {DecimalPipe, NgClass, NgIf, UpperCasePipe} from '@angular/common';
 import {MessageService} from '../../service/messageService';
 import {UserService} from '../../service/userService';
 import {ReactionService} from '../../service/reaction.service';
+import {ReactionPopup} from '../reaction-popup/reaction-popup';
 
 @Component({
   selector: 'app-message',
   imports: [
     UpperCasePipe,
     DecimalPipe,
-    NgClass
+    NgClass,
+    NgIf,
+    ReactionPopup
   ],
   templateUrl: './message-comp.component.html',
   styleUrl: './message-comp.component.css',
@@ -20,11 +23,19 @@ export class MessageComp {
   @Input ({ required: true }) message: any;
   @Output() messageDeleted = new EventEmitter<number>();
 
+  emojiPopupVisible: any;
+
   constructor(private messageService : MessageService,
               private reactionService : ReactionService
               ) {}
 
   ngOnInit(): void {}
+
+
+  onFocusOut() {
+    console.log('Focus lost from emoji popup');
+    this.emojiPopupVisible = false; // Hide the emoji popup when focus is lost
+  }
 
 
   updateSelf() {
@@ -46,6 +57,10 @@ export class MessageComp {
   }
 
   addNewEmoji(msg_id: number, emoji: string) {
+    this.emojiPopupVisible = false; // Hide the popup if no emoji is selected
+    if (!emoji) {
+      return;
+    }
     const userId = UserService.getUserId();
     if (!userId) {
       console.error('User is not logged in');
@@ -96,4 +111,5 @@ export class MessageComp {
   // messageText(): string {
   //   return (marked.parseInline(this.message.content)) as string;
   // }
+
 }

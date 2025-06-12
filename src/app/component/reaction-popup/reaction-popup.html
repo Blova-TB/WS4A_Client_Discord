@@ -1,0 +1,17 @@
+<div class="reaction-popup">
+  <div class="reaction-popup-content">
+    @for (emojiGroup of allEmojis; track emojiGroup) {
+      <div class="emoji-group">
+        <span class="emoji-group-title">{{ emojiGroup[0] }}</span>
+        <div class="emoji-list">
+          @for (emoji of emojiGroup[1]; track emoji) {
+            <span class="emoji-item" (click)="onEmojiSelect(emoji)">
+              {{ emoji }}
+            </span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+

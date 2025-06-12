@@ -1,0 +1,103 @@
+/**
+<div class="reaction-popup">
+  <div class="reaction-popup-header">
+    <button class="close-button" (click)="closePopup()">X</button>
+  </div>
+  <div class="reaction-popup-content">
+    @for (emojiGroup of allEmojis; track emojiGroup) {
+      <div class="emoji-group">
+        <span class="emoji-group-title">{{ emojiGroup[0] }}</span>
+        <div class="emoji-list">
+          @for (emoji of emojiGroup[1]; track emoji) {
+            <span class="emoji-item" (click)="onEmojiSelect(emoji)">
+              {{ emoji }}
+            </span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+
+
+ */
+
+.reaction {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.reaction:hover {
+  background-color: #2c2f33;
+}
+.reaction-popup {
+  position: static;
+  top: 100%;
+  left: 0;
+  background-color: #23272a;
+  border: 1px solid #36393f;
+  border-radius: 8px;
+  padding: 8px;
+  width: max-content;
+  max-width: 9.6em;
+  max-height: 15em;
+  overflow-y: auto;
+  /*
+  no scrollbar
+   */
+  scrollbar-width: none; /* Firefox */
+  z-index: 1000;
+}
+.reaction-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.close-button {
+  background: none;
+  align-self: end;
+  border: none;
+  color: #b5bac1;
+  font-size: 16px;
+  cursor: pointer;
+}
+.reaction-popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.emoji-group {
+  display: flex;
+  flex-direction: column;
+}
+.emoji-group-title {
+  color: #b5bac1;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.emoji-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.emoji-item {
+  background-color: #2c2f33;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.emoji-item:hover {
+  background-color: #40444b;
+}
+.reaction-popup .emoji-item {
+  transition: background-color 0.2s ease;
+}
+.reaction-popup .emoji-item:hover {
+  background-color: #40444b;
+}
+

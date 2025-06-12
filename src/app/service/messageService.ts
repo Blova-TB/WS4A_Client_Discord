@@ -34,6 +34,9 @@ export class MessageService {
   }
 
   deleteMessage($event: number) {
+    if(this.respondMessageId === $event) {
+      this.resetRespondMessageId();
+    }
     return this.http.delete(`${this.apiUrl}/${$event}`, { headers: UserService.getHeaders() });
   }
 

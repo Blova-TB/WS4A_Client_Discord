@@ -25,4 +25,9 @@ export class SubjectService {
     console.log('Deleting subject with ID:', subjectId);
     return this.http.delete(`${this.apiUrl}/${subjectId}`, { headers: UserService.getHeaders() });
   }
+
+  createSubject(newSubject: any): Observable<any> {
+    console.log('Creating subject:', newSubject);
+    return this.http.post(`${this.apiUrl}/`, newSubject, { headers: UserService.getHeaders() });
+  }
 }

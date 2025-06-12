@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
   templateUrl: './validation-with-text-input-modal.component.html',
+  standalone: true,
   styleUrl: './validation-with-text-input-modal.component.css'
 })
 export class ValidationWithTextInputModal {

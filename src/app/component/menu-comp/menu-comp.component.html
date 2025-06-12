@@ -8,7 +8,8 @@
 </div>
 <div class="menu">
   <div class="header">
-    Canaux :
+    MonServ
+    <input type="submit" class="btn btn-new-subject" value="+" (click)="onNewSubject()">
   </div>
   <div class="subject">
     @for (subject of subjects; track subject.id) {
@@ -51,5 +52,17 @@
     [users]="users"
     (close)="onCloseModal()">
   </app-subject-settings-modal>
+}
+
+@if(showCreateSubjectModal) {
+  <app-validation-with-text-input-modal
+    [yesText]="'Créer'"
+    [noText]="'Annuler'"
+    [message]="'Entrez le nom du nouveau sujet :'"
+    [placeholder]="'Nom du sujet'"
+    (yes)="createNewSubject($event)"
+    (no)="showCreateSubjectModal = false">
+  </app-validation-with-text-input-modal>
+
 }
 

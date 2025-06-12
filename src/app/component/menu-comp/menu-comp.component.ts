@@ -4,12 +4,18 @@ import {UserService} from '../../service/userService';
 import {MessageService} from '../../service/messageService';
 import {SubjectSettingsModal} from '../subject-settings-modal/subject-settings-modal';
 
+import {
+  ValidationWithTextInputModal
+} from '../validation-with-text-input-modal/validation-with-text-input-modal.component';
+
 @Component({
   selector: 'app-menu',
   imports: [
-    SubjectSettingsModal
+    SubjectSettingsModal,
+    ValidationWithTextInputModal
   ],
   templateUrl: './menu-comp.component.html',
+  standalone: true,
   styleUrl: './menu-comp.component.css'
 })
 export class MenuComp {
@@ -21,6 +27,7 @@ export class MenuComp {
   userSelectedId: number | undefined;
   @Output() channelSelected = new EventEmitter<{channel:any;isAdmin:boolean}>();
   @Output() userSelected = new EventEmitter<any>();
+  protected showCreateSubjectModal: boolean=false;
 
   constructor(private subjectService: SubjectService,
               private userService: UserService,
@@ -89,5 +96,36 @@ export class MenuComp {
   onCloseModal() {
     this.showSubjectModal = false;
     this.ngOnInit();
+  }
+
+  createNewSubject(event: string) {
+    console.log('Creating new subject with name:', event);
+    const subjectName = event.trim();
+    if (!subjectName) {
+      console.error('Le nom du sujet ne peut pas être vide');
+      return;
+    }
+    const subject =  {
+      "name": subjectName,
+      "isPublic": false,
+      "users": [
+        {
+          "idUser": UserService.getUserId(),
+          "isAdmin": true
+        }
+      ],
+      "channels" : []
+    }
+    this.showCreateSubjectModal = false;
+    this.subjectService.createSubject(subject).subscribe({
+      next: (data) => {
+        this.subjects.push(data);
+      },
+      error: (err) => console.error('Erreur lors de la création du sujet', err)
+    });
+  }
+
+  onNewSubject() {
+    this.showCreateSubjectModal = true;
   }
 }

@@ -13,6 +13,7 @@ import {ChannelService} from '../../service/channelService';
     ValidationWithTextInputModal
   ],
   templateUrl: './subject-settings-modal.html',
+  standalone: true,
   styleUrl: './subject-settings-modal.css'
 })
 export class SubjectSettingsModal {

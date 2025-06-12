@@ -4,6 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-validation-modal',
   imports: [],
   templateUrl: './validation-modal.html',
+  standalone: true,
   styleUrl: './validation-modal.css'
 })
 export class ValidationModal {

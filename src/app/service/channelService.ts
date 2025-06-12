@@ -25,4 +25,11 @@ export class ChannelService {
     }
     return this.http.post(`${this.apiUrl}/`, { id:undefined, name: name, subjectId: id}, { headers: UserService.getHeaders() });
   }
+
+  deleteChannel(id: number): Observable<any> {
+    if (!id) {
+      throw new Error('Channel ID is required');
+    }
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers: UserService.getHeaders() });
+  }
 }

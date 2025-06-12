@@ -1,9 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {SubjectService} from '../../service/subjectService';
 import {ValidationModal} from '../validation-modal/validation-modal';
-import {
-  ValidationWithTextInputModal
-} from '../validation-with-text-input-modal/validation-with-text-input-modal.component';
+import {ValidationWithTextInputModal} from '../validation-with-text-input-modal/validation-with-text-input-modal.component';
 import {ChannelService} from '../../service/channelService';
 
 @Component({

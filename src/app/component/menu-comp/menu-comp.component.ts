@@ -3,14 +3,15 @@ import {SubjectService} from '../../service/subjectService';
 import {UserService} from '../../service/userService';
 import {MessageService} from '../../service/messageService';
 import {SubjectSettingsModal} from '../subject-settings-modal/subject-settings-modal';
-
-import {
-  ValidationWithTextInputModal
-} from '../validation-with-text-input-modal/validation-with-text-input-modal.component';
+import {ChannelService} from '../../service/channelService';
+import {ValidationModal} from '../validation-modal/validation-modal';
+import {ValidationWithTextInputModal} from '../validation-with-text-input-modal/validation-with-text-input-modal.component';
 
 @Component({
   selector: 'app-menu',
   imports: [
+    SubjectSettingsModal,
+    ValidationModal,
     SubjectSettingsModal,
     ValidationWithTextInputModal
   ],
@@ -19,19 +20,22 @@ import {
   styleUrl: './menu-comp.component.css'
 })
 export class MenuComp {
+  @Output() channelSelected = new EventEmitter<{ channel: any; isAdmin: boolean }>();
+  @Output() userSelected = new EventEmitter<any>();
+
   showSubjectModal = false;
   subjectToEdit: any;
   subjects: any;
   users: any;
   channelSelectedId: number | undefined;
   userSelectedId: number | undefined;
-  @Output() channelSelected = new EventEmitter<{channel:any;isAdmin:boolean}>();
-  @Output() userSelected = new EventEmitter<any>();
-  protected showCreateSubjectModal: boolean=false;
+  modalValidationDeletionVisible: boolean = false;
+  protected showCreateSubjectModal: boolean = false;
 
   constructor(private subjectService: SubjectService,
               private userService: UserService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private channelService: ChannelService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -45,9 +49,9 @@ export class MenuComp {
     });
   }
 
-  onChannelSelected(channel: any, subject:any): void {
+  onChannelSelected(channel: any, subject: any): void {
     this.channelSelectedId = parseInt(channel);
-    this.channelSelected.emit({channel:channel,isAdmin:this.userIsAdminForSubject(subject)});
+    this.channelSelected.emit({channel: channel, isAdmin: this.userIsAdminForSubject(subject)});
     this.messageService.resetRespondMessageId();
     this.userSelectedId = undefined;
   }
@@ -78,7 +82,7 @@ export class MenuComp {
   }
 
   userAsAccessToSubject(subject: any): boolean {
-    if (subject.isPublic){
+    if (subject.isPublic) {
       return true;
     }
     return subject.users && subject.users.some((user: any) => user.idUser === UserService.getUserId());
@@ -98,6 +102,34 @@ export class MenuComp {
     this.ngOnInit();
   }
 
+  onChannelDelete(channelId: number) {
+    this.modalValidationDeletionVisible = true;
+    this.channelSelectedId = channelId;
+  }
+
+  onModalChannelDeletionYes() {
+    if (this.channelSelectedId === undefined) {
+      console.error('Channel ID is undefined');
+      return;
+    }
+    this.channelService.deleteChannel(this.channelSelectedId).subscribe({
+      next: () => {
+        this.modalValidationDeletionVisible = false;
+        this.channelSelectedId = undefined;
+        this.messageService.resetRespondMessageId();
+        this.ngOnInit();
+        this.channelSelected.emit({channel: undefined, isAdmin: false});
+      },
+      error: (error: any) => {
+        console.error('Error deleting channel:', error);
+      }
+    });
+  }
+
+  onModalChannelDeletionNo() {
+    this.modalValidationDeletionVisible = false;
+  }
+
   createNewSubject(event: string) {
     console.log('Creating new subject with name:', event);
     const subjectName = event.trim();
@@ -105,7 +137,7 @@ export class MenuComp {
       console.error('Le nom du sujet ne peut pas être vide');
       return;
     }
-    const subject =  {
+    const subject = {
       "name": subjectName,
       "isPublic": false,
       "users": [
@@ -114,7 +146,7 @@ export class MenuComp {
           "isAdmin": true
         }
       ],
-      "channels" : []
+      "channels": []
     }
     this.showCreateSubjectModal = false;
     this.subjectService.createSubject(subject).subscribe({

@@ -18,12 +18,12 @@ export class RegisterComp {
   @Output() registerSuccess = new EventEmitter<{ pseudo: string; password: string; token: string }>();
 
 
-  confirmPassword: string;
+  confirmPassword: string = '';
   user: DiscordUser;
-  errorMessage: string;
+  errorMessage: string = '';
 
   equalsPasswordValidator(control: FormControl): { [key: string]: boolean } | null {
-    if (control.value !== this.userForm.get('password')?.value) {
+    if (control.value !== this.userForm?.get('password')?.value) {
       return { 'passwordMismatch': true }; // Return an error if passwords do not match
     }
     return null; // Return null if passwords match
@@ -31,7 +31,8 @@ export class RegisterComp {
 
   userForm: FormGroup = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-    confirmPassword: new FormControl('', [Validators.required, this.equalsPasswordValidator.bind(this)]),
+    confirmPassword: new FormControl('',
+      [Validators.required, this.equalsPasswordValidator.bind(this)]),
     username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     email: new FormControl('', [Validators.required, Validators.email]),
 

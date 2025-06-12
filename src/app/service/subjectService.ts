@@ -22,6 +22,7 @@ export class SubjectService {
   }
 
   deleteSubject(subjectId: number): Observable<any> {
+    console.log('Deleting subject with ID:', subjectId);
     return this.http.delete(`${this.apiUrl}/${subjectId}`, { headers: UserService.getHeaders() });
   }
 }

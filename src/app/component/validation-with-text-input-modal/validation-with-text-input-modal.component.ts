@@ -24,6 +24,6 @@ export class ValidationWithTextInputModal {
     this.textInputValue = this.defaultTextInputValue;
   }
 
-  onYes() { this.yes.emit(); }
+  onYes() { this.yes.emit(this.textInputValue); }
   onNo() { this.no.emit(); }
 }

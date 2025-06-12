@@ -86,8 +86,16 @@ export class SubjectSettingsModal {
     this.modalValidationCreationChannelVisible = false;
   }
 
-  onModalValidationCreationChannelYes($event: string) {
+  onModalValidationCreationChannelYes(name: string) {
     this.modalValidationCreationChannelVisible = false;
-    this.channelService.createChannel(this.subject.id, $event).subscribe(() => {});
+    this.channelService.createChannel(this.subject.id, name).subscribe(
+      (response) => {
+        this.close.emit();
+      },
+      (error) => {
+        console.error('Error creating channel:', error);
+      }
+    );
+
   }
 }

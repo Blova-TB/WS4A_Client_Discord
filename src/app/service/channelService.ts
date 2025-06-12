@@ -20,6 +20,9 @@ export class ChannelService {
   }
 
   createChannel(id: number, name: string) {
-    return this.http.post(`${this.apiUrl}/`, { idSubject: id, name: name }, { headers: UserService.getHeaders() });
+    if (!id || !name) {
+      throw new Error('Channel ID and name are required');
+    }
+    return this.http.post(`${this.apiUrl}/`, { id:undefined, name: name, subjectId: id}, { headers: UserService.getHeaders() });
   }
 }

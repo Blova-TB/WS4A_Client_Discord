@@ -17,5 +17,29 @@
       </div>
     </div>
     }
+    <div class="footer-modal">
+      <button class="btn-new" (click)="onNewChannel()">New Channel</button>
+      <button class="btn-del" (click)="onDeleteSubject()">Delete Workspace</button>
+    </div>
   </div>
 </div>
+@if (modalValidationDeletionVisible) {
+  <app-validation-modal
+    [yesText]="'Oui'"
+    [noText]="'Annuler'"
+    [message]="'Êtes-vous sûr de vouloir supprimer ce Workspace ?'"
+    (yes)="onModalValidationDeletionYes()"
+    (no)="onModalValidationDeletionNo()">
+  </app-validation-modal>
+}
+@if(modalValidationCreationChannelVisible){
+  <app-validation-with-text-input-modal
+    [yesText]="'Créer'"
+    [noText]="'Annuler'"
+    [message]="'Entrez le nom du nouveau canal :'"
+    [placeholder]="'Nom du canal'"
+    (yes)="onModalValidationCreationChannelYes($event)"
+    (no)="onModalValidationCreationChannelNo()">
+  </app-validation-with-text-input-modal>
+}
+

@@ -1,0 +1,15 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <div class="modal-message">{{ message }}</div>
+    <input
+      class="modal-text-input"
+      [(ngModel)]="textInputValue"
+      [placeholder]="placeholder"
+      type="text"
+    />
+    <div class="modal-actions">
+      <button class="btn btn-yes" (click)="onYes()">{{ yesText }}</button>
+      <button class="btn btn-no" (click)="onNo()">{{noText}}</button>
+    </div>
+  </div>
+</div>

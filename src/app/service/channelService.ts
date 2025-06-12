@@ -18,4 +18,8 @@ export class ChannelService {
     }
     return this.http.get(`${this.apiUrl}/${id}`, { headers: UserService.getHeaders()});
   }
+
+  createChannel(id: number, name: string) {
+    return this.http.post(`${this.apiUrl}/`, { idSubject: id, name: name }, { headers: UserService.getHeaders() });
+  }
 }

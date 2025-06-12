@@ -20,4 +20,8 @@ export class SubjectService {
     console.log('FINALE Updating subject:', updatedSubject);
     return this.http.put(`${this.apiUrl}/`,updatedSubject, { headers: UserService.getHeaders() });
   }
+
+  deleteSubject(subjectId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${subjectId}`, { headers: UserService.getHeaders() });
+  }
 }

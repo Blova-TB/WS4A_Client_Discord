@@ -1,13 +1,13 @@
 export class DiscordUser {
   id: number | undefined;
-  name: string | undefined;
+  login: string | undefined;
   email: string | undefined;
-  password: string | undefined;
+  pwd: string | undefined;
 
   constructor(id : number | undefined, name : string | undefined, email: string | undefined, password: string | undefined) {
     this.id = id;
-    this.name = name;
+    this.login = name;
     this.email = email;
-    this.password = password;
+    this.pwd = password;
   }
 }

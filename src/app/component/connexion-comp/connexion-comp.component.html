@@ -1,5 +1,10 @@
-@if(isLoggingIn){
-  <app-login (loginSuccess)="loginSuccess($event)" ></app-login>
+@if (isLoggingIn) {
+  <app-login
+             (loginSuccess)="loginSuccess($event)"
+             (registerToggle)="isLoggingIn = false"></app-login>
 } @else {
-  <app-register></app-register>
+  <app-register
+    (registerSuccess)="loginSuccess($event)"
+    (toggle)="isLoggingIn = true"
+    ></app-register>
 }

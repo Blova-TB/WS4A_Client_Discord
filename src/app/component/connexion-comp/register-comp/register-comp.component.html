@@ -1,1 +1,91 @@
-<p>register works!</p>
+<form class="login-form" (ngSubmit)="onRegister()" [formGroup]="userForm">
+  <h2>Inscription</h2>
+  @if (errorMessage) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+  @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+    <div class="alert alert-danger" role="alert">
+      @if (userForm.get('username')?.errors?.['required']) {
+        Le pseudo est requis.
+      } @else if (userForm.get('username')?.errors?.['minlength']) {
+        Le pseudo doit contenir au moins 3 caractères.
+      } @else if (userForm.get('username')?.errors?.['maxlength']) {
+        Le pseudo ne doit pas dépasser 20 caractères.
+      }
+    </div>
+  }
+  @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+    <div class="alert alert-danger" role="alert">
+      L'email est requis et doit être au format valide.
+    </div>
+  }
+  @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+    <div class="alert alert-danger" role="alert">
+      Le mot de passe est requis et doit contenir au moins 3 caractères.
+    </div>
+  }
+  @if (userForm.get('confirmPassword')?.invalid && userForm.get('confirmPassword')?.touched) {
+    <div class="alert alert-danger" role="alert">
+      Les mots de passe ne correspondent pas.
+    </div>
+  }
+  <div class="form-group">
+    <label for="Pseudo">pseudo</label>
+    <input
+      id="pseudo"
+      name="pseudo"
+      type="text"
+      required
+      formControlName="username"
+      class="form-control"
+      autocomplete="username"
+    />
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      required
+      formControlName="email"
+      class="form-control"
+      autocomplete="email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      minlength="3"
+      required
+      formControlName="password"
+      class="form-control"
+      autocomplete="new-password"
+    />
+  </div>
+  <div class="form-group">
+    <label for="confirmPassword">Confirmer le mot de passe</label>
+    <input
+      id="confirmPassword"
+      name="confirmPassword"
+      type="password"
+      required
+      formControlName="confirmPassword"
+      class="form-control"
+      autocomplete="new-password"
+    />
+  </div>
+  <button type="submit" class="register-btn" [disabled]="userForm.invalid">
+    S'inscrire
+  </button>
+
+</form>
+<div class="register-link">
+  <span>Déjà inscrit ? </span>
+  <button class="login-btn btn-sec" (click)="toggleRegister()">Se connnecter</button>
+</div>

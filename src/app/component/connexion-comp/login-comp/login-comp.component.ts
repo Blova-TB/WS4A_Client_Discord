@@ -5,10 +5,11 @@ import {UserService} from '../../../service/userService';
 @Component({
   selector: 'app-login',
   imports: [
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './login-comp.component.html',
-  styleUrl: './login-comp.component.css'
+  standalone: true,
+  styleUrl: '../connexion-comp.component.css'
 })
 export class LoginComp {
   pseudo = '';
@@ -16,11 +17,10 @@ export class LoginComp {
   errorMessage = '';
 
   @Output() loginSuccess = new EventEmitter<{ pseudo: string; password: string; token :string }>();
+  @Output() registerToggle = new EventEmitter<void>();
 
   constructor(private userService : UserService) {
-
   }
-
   onLogin() {
     if (this.pseudo.trim() && this.password) {
       this.userService.login(this.pseudo, this.password).subscribe({
@@ -34,5 +34,11 @@ export class LoginComp {
         }
       });
     }
+  }
+
+  toggleRegister() {
+    this.registerToggle.emit(); // Emit an event to toggle to the registration component
+    this.errorMessage = ''; // Clear any previous error messages
+
   }
 }

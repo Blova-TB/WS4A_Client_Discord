@@ -10,6 +10,7 @@ import {UserService} from '../../service/userService';
     RegisterComp
   ],
   templateUrl: './connexion-comp.component.html',
+  standalone: true,
   styleUrl: './connexion-comp.component.css'
 })
 export class ConnexionComp {

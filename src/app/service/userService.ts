@@ -54,6 +54,10 @@ export class UserService{
     return this.http.post(`http://localhost:8080/WS_PROJECT_DISCORD_war_exploded/AuthServer/connect`, null, { headers });
   }
 
+  register(user: DiscordUser): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, user, { headers: UserService.getHeaders() });
+  }
+
   logout() {
     UserService.user = new DiscordUser(undefined, '', '', '');
   }

@@ -22,5 +22,10 @@ export class ReactionService {
     return this.http.delete(`${this.apiUrl}/delete/${userId}/${messageId}`, { headers: UserService.getHeaders() });
   }
 
+  updateReaction(messageId: number, userId: number, reaction: string) {
+    const n_reaction = new Reaction(reaction, userId, messageId);
+    return this.http.put(`${this.apiUrl}/update`, n_reaction, { headers: UserService.getHeaders() });
+  }
+
 
 }

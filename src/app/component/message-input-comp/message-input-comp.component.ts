@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -11,14 +11,25 @@ import {FormsModule} from '@angular/forms';
   standalone: true
 })
 export class MessageInputComp {
-  message: string = '';
+  @Input() message: string = '';
   @Output() messageSent = new EventEmitter<string>();
+
+  ngOnInit(): void {
+    console.log('MessageInputComp initialized : ', this.message);
+  }
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "budim2.wav";
+    audio.load();
+    audio.play();
+  }
 
   sendMessage() {
     const trimmed = this.message.trim();
     if (trimmed) {
       this.messageSent.emit(trimmed);
       this.message = '';
+      this.playAudio();
     }
   }
 }

@@ -35,16 +35,27 @@ export class ReactionPopup {
     ["Characters", this.characterEmojis],
     ["Animals", this.animalEmojis],
     ["Food", this.foodEmojis],
-    ["Other", this.otherEmojis]
+    ["Other", this.otherEmojis],
+    ["Secret", ['🐟']]
   ];
 
   onEmojiSelect(emoji: string) {
+    if (emoji == '🐟') {
+        let audio = new Audio();
+        audio.src = "pwasson.mp3";
+        audio.load();
+        audio.volume = 0.06;
+        audio.play();
+         // Set volume to 50%
+      //makes the audio stop after 15 seconds
+      setTimeout(() => {
+        audio.pause();
+      }, 16500);
+    }
     this.emojiSelected.emit(emoji); // Emit the selected emoji
   }
 
   closePopup() {
-    // Logic to close the popup can be added here
-    console.log('Popup closed');
     this.emojiSelected.emit(undefined); // Emit an empty string to indicate closure
   }
 

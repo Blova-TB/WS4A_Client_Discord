@@ -37,6 +37,13 @@ export class MessageService {
     return this.http.delete(`${this.apiUrl}/${$event}`, { headers: UserService.getHeaders() });
   }
 
+  editMessage($event: Message): Observable<any> {
+    if (!$event.content) {
+      throw new Error('Message content is required');
+    }
+    return this.http.patch(`${this.apiUrl}/`, $event, { headers: UserService.getHeaders() });
+  }
+
   setRespondMessageId(id: number) {
     MessageService.respondMessageId = id;
   }

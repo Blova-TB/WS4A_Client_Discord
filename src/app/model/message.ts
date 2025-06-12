@@ -1,3 +1,5 @@
+import {Reaction} from './reaction';
+
 export class Message{
   id: number | undefined;
 
@@ -10,8 +12,17 @@ export class Message{
   receiverId: number | undefined;
 
   respondsToId: number | undefined;
+  reactions: Reaction[] | undefined;
 
-  constructor(authorId: number | undefined, authorName: string | undefined, content: string, channelId: number | undefined, receiverId: number | undefined, respondsToId: number | undefined) {
+  constructor(
+    authorId: number | undefined,
+    authorName: string | undefined,
+    content: string,
+    channelId: number | undefined,
+    receiverId: number | undefined,
+    respondsToId: number | undefined,
+    reactions: Reaction[] | undefined = []
+    ) {
     this.id = undefined;
     this.authorId = authorId;
     this.authorName = authorName;
@@ -20,5 +31,6 @@ export class Message{
     this.channelId = channelId;
     this.receiverId = receiverId;
     this.respondsToId = respondsToId;
+    this.reactions = [];
   }
 }

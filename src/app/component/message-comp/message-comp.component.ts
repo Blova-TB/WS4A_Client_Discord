@@ -4,6 +4,8 @@ import {MessageService} from '../../service/messageService';
 import {UserService} from '../../service/userService';
 import {ReactionService} from '../../service/reaction.service';
 import {ReactionPopup} from '../reaction-popup/reaction-popup';
+import {MessageInputComp} from '../message-input-comp/message-input-comp.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-message',
@@ -12,7 +14,8 @@ import {ReactionPopup} from '../reaction-popup/reaction-popup';
     DecimalPipe,
     NgClass,
     NgIf,
-    ReactionPopup
+    ReactionPopup,
+    MessageInputComp
   ],
   templateUrl: './message-comp.component.html',
   styleUrl: './message-comp.component.css',
@@ -23,8 +26,9 @@ export class MessageComp {
   @Input ({ required: true }) message: any;
   @Output() messageDeleted = new EventEmitter<number>();
 
-  emojiPopupVisible: any;
-
+  emojiPopupVisible: boolean = false;
+  editMode: boolean = false;
+  newMessageContent: string = '';
   constructor(private messageService : MessageService,
               private reactionService : ReactionService
               ) {}
@@ -33,7 +37,6 @@ export class MessageComp {
 
 
   onFocusOut() {
-    console.log('Focus lost from emoji popup');
     this.emojiPopupVisible = false; // Hide the emoji popup when focus is lost
   }
 
@@ -66,7 +69,20 @@ export class MessageComp {
       console.error('User is not logged in');
       return;
     }
-    this.reactionService.addReaction(msg_id, userId, emoji).subscribe({
+
+    let obs: Observable<Object>;
+    //already has reaction
+    const existingReaction =
+this.message.reactions.find((reaction: any) => reaction.userId === userId);
+    if (existingReaction) {
+      // If the reaction already exists, remove it
+      obs = this.reactionService.updateReaction(msg_id, userId, emoji);
+    } else {
+      // If the reaction does not exist, add it
+      obs = this.reactionService.addReaction(msg_id, userId, emoji);
+    }
+
+    obs.subscribe({
       next: () => {
         this.updateSelf()
         // Optionally, you can update the UI or handle the response
@@ -112,4 +128,28 @@ export class MessageComp {
   //   return (marked.parseInline(this.message.content)) as string;
   // }
 
+  editMessage(content: string) {
+    this.toggleEditMode(); // Toggle edit mode off after editing
+    if (!content.trim()) {
+      console.error('Message content is required for editing');
+      return;
+    }
+    this.message.content = content;
+    this.messageService.editMessage(this.message).subscribe({
+      next: () => {
+        this.updateSelf();
+      },
+      error: (error: any) => {
+        console.error('Error editing message:', error);
+        // Handle error appropriately, e.g., show a message to the user
+      }
+    });
+  }
+
+  toggleEditMode() {
+    if (!this.editMode) {
+      this.newMessageContent = this.message.content; // Initialize with current message content
+    }
+    this.editMode = !this.editMode;
+  }
 }

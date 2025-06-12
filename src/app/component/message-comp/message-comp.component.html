@@ -1,6 +1,8 @@
 <div class="all-of-message"
      [ngClass]="{'all-of-message-hover': !isRespondSelected(message)}"
-     (mouseleave)="onFocusOut()">
+     (mouseleave)="onFocusOut()"
+     (keydown.escape)="editMode = false; emojiPopupVisible = false;"
+>
   <div class="discord-message" [ngClass]="{'blue-background': isRespondSelected(message)}">
     <div class="avatar">{{ message.authorName[0] | uppercase }}</div>
     <div class="message-content">
@@ -34,7 +36,7 @@
                     d="M2.3 7.3a1 1 0 0 0 0 1.4l5 5a1 1 0 0 0 1.4-1.4L5.42 9H11a7 7 0 0 1 7 7v4a1 1 0 1 0 2 0v-4a9 9 0 0 0-9-9H5.41l3.3-3.3a1 1 0 0 0-1.42-1.4l-5 5Z"
                     class=""></path>
             </svg>
-            @if (isAdmin) {
+            @if (isAdmin || message.authorId === getUserId()) {
               <svg (click)="deleteMess()" class="icon_c1e9c4" aria-hidden="true" role="img"
                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path fill="currentColor"
@@ -45,15 +47,30 @@
                       clip-rule="evenodd" class=""></path>
               </svg>
             }
+            @if (message.authorId === getUserId()) {
+              <svg (click)="toggleEditMode()" class="icon" aria-hidden="true" role="img"
+                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                      d="m13.96 5.46 4.58 4.58a1 1 0 0 0 1.42 0l1.38-1.38a2 2 0 0 0 0-2.82l-3.18-3.18a2 2 0 0 0-2.82 0l-1.38 1.38a1 1 0 0 0 0 1.42ZM2.11 20.16l.73-4.22a3 3 0 0 1 .83-1.61l7.87-7.87a1 1 0 0 1 1.42 0l4.58 4.58a1 1 0 0 1 0 1.42l-7.87 7.87a3 3 0 0 1-1.6.83l-4.23.73a1.5 1.5 0 0 1-1.73-1.73Z"
+                      class=""></path>
+              </svg>
+            }
           </div>
 
         </div>
       </div>
-      <div class="content">{{ message.content }}</div>
+      @if (editMode) {
+        <app-message-input
+          [message]="newMessageContent"
+          (messageSent)="editMessage($event)">
+        </app-message-input>
+      } @else {
+        <div class="content">{{ message.content }}</div>
+      }
       <!--      <div class="content" [innerHTML]="messageText()"></div>-->
       @if (message.reactions?.length) {
         <div class="reactions">
-          @for (reaction of message.reactions; track message.id) {
+          @for (reaction of message.reactions; track reaction.userId) {
             <span class="reaction"
                   (click)="onDeleteReaction(message.id, reaction.userId)"
                   [ngClass]="{'active': reaction.userId === getUserId()}">

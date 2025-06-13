@@ -1,8 +1,16 @@
+.menu-container {
+  display: block;
+  max-height: 90vh;
+}
 .menu {
+  display: block;
   margin-left: 10%;
   margin-right: 10%;
   width: 80%;
+  height: 90vh;
   color: #c2c2c2;
+  overflow-y: auto;
+  scrollbar-width: none;
 
   .btn-new-subject {
     background-color: #23272a !important;

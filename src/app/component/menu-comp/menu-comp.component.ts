@@ -161,4 +161,6 @@ export class MenuComp {
   onNewSubject() {
     this.showCreateSubjectModal = true;
   }
+
+  protected readonly UserService = UserService;
 }

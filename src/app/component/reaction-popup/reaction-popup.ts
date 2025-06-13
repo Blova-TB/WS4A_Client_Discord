@@ -44,7 +44,7 @@ export class ReactionPopup {
         let audio = new Audio();
         audio.src = "pwasson.mp3";
         audio.load();
-        audio.volume = 0.06;
+        audio.volume = 0.16;
         audio.play();
          // Set volume to 50%
       //makes the audio stop after 15 seconds
